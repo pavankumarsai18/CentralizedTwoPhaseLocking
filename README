@@ -1,0 +1,97 @@
+This readme file describes the files and libraries required to run the project.
+It also describes how to compile and start the project
+
+1. Libraries required
+---------------------
+   a. sqlite-jdbc-3.36.03: This is the jdbc driver that connects to a sqlite database.
+                           This is currently in the lib directory and named as "sqlite-jdbc.jar",
+                           no need to install if the project works.
+
+   b. rmi: Make sure that java is able to run rmi.
+
+   c. Java: version 17.0.2
+
+   d. Tested on macOS 12.0.1
+
+
+2. How to compile and run the project
+-------------------------------------
+    a. First open the terminal
+    b. Go to "CentralizedTwoPhaseLocking" directory
+    c. Type the following command to compile
+        "javac -d bin ./src/*/*.java"
+
+    d. Now you will be able to see a directory named "bin"
+    e. Go into "bin" directory by typing "cd bin"
+    f. Start rmi in the bin registry by typing the following command (for mac)
+        "rmiregistry &"
+
+3. Start a central site
+------------------------
+    - Now open a new new terminal or a new tab in terminal and go to "CentralizedTwoPhaseLocking" directory.
+    - Type the following command to start central site:
+        "java -classpath bin:lib/sqlite-jdbc.jar CentralSite.CentralSite"
+    - This will start the central site. It will give u a prompt as follows:
+        > Welcome!!!
+        > In Central Site
+        > Enter the timeout for deadlocks (in ms):
+
+    - Now enter a number atleast greater than 3000. This number corresponds to the time after which deadlocks are checked.
+        For example if I entered 3000 then I will recieve the following prompt
+        > Deadlock is checked every: 3000ms
+        > Enter if you wish to output to console (true/false):
+
+    - Enter "true" to see the output false otherwise.
+
+    - Now you have successfully started the central site.
+
+    Example of the total run of starting central site is as follows:
+    CentralizedTwoPhaseLocking % java -classpath bin:lib/sqlite-jdbc.jar CentralSite.CentralSite
+    > Welcome!!!
+    > In Central Site
+    > Enter the timeout for deadlocks (in ms):
+    3000
+    > Deadlock is checked every: 3000ms
+    > Enter if you wish to output to console (true/false):
+    true
+
+4. How to start a participant (Data site)
+-----------------------------------------
+    - Open a new terminal. DO NOT CLOSE the previously opened terminals.
+    - Type the following command to start the participant site:
+        "java -classpath bin:lib/sqlite-jdbc.jar ParticipantSite.ParticipantSite"
+
+    - Now you will see the following prompt
+        > Welcome!!!
+        > In Participant Site
+        > Type 'start' to start site:
+
+    - Type 'start' Now you will see the following command
+        > Enter the complete file path:
+
+    - Enter the path to the a test files in the 'TestFiles' (such as test1.txt).
+      For example the following path is to test1.txt in my computer:
+        /Users/pavanvadrevu/IdeaProjects/CentralizedTwoPhaseLocking/TestFiles/test1.txt
+
+      You can get the path by going into the TestFiles directory and using pwd command.
+
+    - Now you have successfully started paricipant site. Open a new terminal and repeat the exact same process
+     (may be except for the file path) to start other participant site.
+
+    Example of the total run of starting participant site is as follows:
+    CentralizedTwoPhaseLocking % java -classpath bin:lib/sqlite-jdbc.jar ParticipantSite.ParticipantSite
+    > Welcome!!!
+    > In Participant Site
+    > Type 'start' to start site:
+    start
+    > Enter the complete file path:
+    /Users/pavanvadrevu/IdeaProjects/CentralizedTwoPhaseLocking/TestFiles/test1.txt
+
+
+How to stop a site:
+-------------------
+1. Go the terminal where the site is runnign and
+    Press ctrl + C to kill any site. Killing the central site will cause failures.
+2. This implementation is assumes that no site failures can occur.
+3. To kill the rmiregistry go to the terminal and type "ps" and run "kill" command on the PID of rmiregistry.
+
