@@ -90,7 +90,7 @@ It also describes how to compile and start the project
 
 How to stop a site:
 -------------------
-1. Go the terminal where the site is runnign and
+1. Go the terminal where the site is running and
     Press ctrl + C to kill any site. Killing the central site will cause failures.
 2. This implementation is assumes that no site failures can occur.
 3. To kill the rmiregistry go to the terminal and type "ps" and run "kill" command on the PID of rmiregistry.
